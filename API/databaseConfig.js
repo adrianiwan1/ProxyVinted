@@ -1,8 +1,8 @@
-import { createPool } from "mysql";
+var mysql = require("mysql");
 
 const dbConfig = {};
 
-dbConfig.databasePool = createPool({
+dbConfig.databasePool = mysql.createPool({
     connectionLimit: 5,
     host: 'localhost',
     user: 'root',
@@ -10,4 +10,4 @@ dbConfig.databasePool = createPool({
     database: 'bookStore'
 })
 
-export default dbConfig;
+module.exports = dbConfig;
