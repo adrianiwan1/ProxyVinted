@@ -16,7 +16,7 @@ async function loginUser(req, res, next){
     console.log('loginUser endpoint requested');
     
     let response = await login(req.body);
-    res.send('logged in');
+    res.send(response);
 }
 
 module.exports = {getItems, loginUser}

@@ -9,7 +9,7 @@ async function login(userData){
         throw err;
     }
 
-    if(dbUserData !== undefined){
+    if(dbUserData[0] !== undefined){
 
         if(isUserBanned(dbUserData[0].isBanned)){
             return {loginError: false, passwordError: false, dbError: false, userBanned: true};

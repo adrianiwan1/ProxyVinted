@@ -7,7 +7,7 @@ dbConfig.databasePool = mysql.createPool({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'bookStore'
+    database: 'vintedproxy'
 })
 
 module.exports = dbConfig;
