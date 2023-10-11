@@ -1,14 +1,13 @@
-
-import './App.css';
+import './Style/App.css';
 import React, { useState } from 'react';
-import MyModal from './LoginModal.js';
+import Home from './Pages/Home.js';
 
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <MyModal />
+        <Home />
       </header>
     </div>
   );
