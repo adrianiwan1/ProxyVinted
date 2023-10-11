@@ -15,7 +15,7 @@ async function getItems(req, res, next){
 async function loginUser(req, res, next){
     console.log('loginUser endpoint requested');
     
-    let response = login(req.body);
+    let response = await login(req.body);
     res.send('logged in');
 }
 
