@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 09 Paź 2023, 17:12
+-- Czas generowania: 11 Paź 2023, 12:41
 -- Wersja serwera: 10.4.21-MariaDB
 -- Wersja PHP: 8.0.11
 
@@ -24,6 +24,25 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Struktura tabeli dla tabeli `rules`
+--
+
+CREATE TABLE `rules` (
+  `id` tinyint(11) NOT NULL,
+  `name` text COLLATE utf8_polish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `rules`
+--
+
+INSERT INTO `rules` (`id`, `name`) VALUES
+(0, 'user'),
+(1, 'admin');
+
+-- --------------------------------------------------------
+
+--
 -- Struktura tabeli dla tabeli `searchquery`
 --
 
@@ -40,7 +59,8 @@ CREATE TABLE `searchquery` (
   `statusIDs` varchar(255) COLLATE utf8_polish_ci NOT NULL,
   `isForSwap` tinyint(1) NOT NULL,
   `page` int(11) NOT NULL,
-  `perPage` int(11) NOT NULL
+  `perPage` int(11) NOT NULL,
+  `isFavourite` tinyint(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 -- --------------------------------------------------------
@@ -52,12 +72,20 @@ CREATE TABLE `searchquery` (
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `user` varchar(8192) COLLATE utf8_polish_ci NOT NULL,
-  `password` varchar(8192) COLLATE utf8_polish_ci NOT NULL
+  `password` varchar(8192) COLLATE utf8_polish_ci NOT NULL,
+  `rule` tinyint(4) DEFAULT NULL,
+  `isBanned` tinyint(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
 -- Indeksy dla zrzutów tabel
 --
+
+--
+-- Indeksy dla tabeli `rules`
+--
+ALTER TABLE `rules`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeksy dla tabeli `searchquery`
@@ -70,11 +98,18 @@ ALTER TABLE `searchquery`
 -- Indeksy dla tabeli `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_user_rules` (`rule`);
 
 --
 -- AUTO_INCREMENT dla zrzuconych tabel
 --
+
+--
+-- AUTO_INCREMENT dla tabeli `rules`
+--
+ALTER TABLE `rules`
+  MODIFY `id` tinyint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT dla tabeli `searchquery`
@@ -86,7 +121,7 @@ ALTER TABLE `searchquery`
 -- AUTO_INCREMENT dla tabeli `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Ograniczenia dla zrzutów tabel
@@ -97,6 +132,12 @@ ALTER TABLE `user`
 --
 ALTER TABLE `searchquery`
   ADD CONSTRAINT `searchquery_ibfk_1` FOREIGN KEY (`user`) REFERENCES `user` (`id`);
+
+--
+-- Ograniczenia dla tabeli `user`
+--
+ALTER TABLE `user`
+  ADD CONSTRAINT `FK_user_rules` FOREIGN KEY (`rule`) REFERENCES `rules` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
