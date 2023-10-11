@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 11 Paź 2023, 12:41
+-- Czas generowania: 11 Paź 2023, 16:47
 -- Wersja serwera: 10.4.21-MariaDB
 -- Wersja PHP: 8.0.11
 
@@ -24,19 +24,19 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `rules`
+-- Struktura tabeli dla tabeli `roles`
 --
 
-CREATE TABLE `rules` (
+CREATE TABLE `roles` (
   `id` tinyint(11) NOT NULL,
   `name` text COLLATE utf8_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
--- Zrzut danych tabeli `rules`
+-- Zrzut danych tabeli `roles`
 --
 
-INSERT INTO `rules` (`id`, `name`) VALUES
+INSERT INTO `roles` (`id`, `name`) VALUES
 (0, 'user'),
 (1, 'admin');
 
@@ -73,7 +73,7 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `user` varchar(8192) COLLATE utf8_polish_ci NOT NULL,
   `password` varchar(8192) COLLATE utf8_polish_ci NOT NULL,
-  `rule` tinyint(4) DEFAULT NULL,
+  `role` tinyint(4) DEFAULT NULL,
   `isBanned` tinyint(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
@@ -82,9 +82,9 @@ CREATE TABLE `user` (
 --
 
 --
--- Indeksy dla tabeli `rules`
+-- Indeksy dla tabeli `roles`
 --
-ALTER TABLE `rules`
+ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -99,16 +99,16 @@ ALTER TABLE `searchquery`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_user_rules` (`rule`);
+  ADD KEY `FK_user_rules` (`role`);
 
 --
 -- AUTO_INCREMENT dla zrzuconych tabel
 --
 
 --
--- AUTO_INCREMENT dla tabeli `rules`
+-- AUTO_INCREMENT dla tabeli `roles`
 --
-ALTER TABLE `rules`
+ALTER TABLE `roles`
   MODIFY `id` tinyint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
@@ -137,7 +137,7 @@ ALTER TABLE `searchquery`
 -- Ograniczenia dla tabeli `user`
 --
 ALTER TABLE `user`
-  ADD CONSTRAINT `FK_user_rules` FOREIGN KEY (`rule`) REFERENCES `rules` (`id`);
+  ADD CONSTRAINT `FK_user_rules` FOREIGN KEY (`role`) REFERENCES `roles` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
