@@ -1,4 +1,5 @@
 const { getAllItems } = require('../services/getAllItemsUseCase.js');
+const { login } = require('../services/loginUserUseCase.js');
 
 async function getItems(req, res, next){
     console.log('getItems endpoint requested');
@@ -14,6 +15,7 @@ async function getItems(req, res, next){
 async function loginUser(req, res, next){
     console.log('loginUser endpoint requested');
     
+    let response = login(req.body);
     res.send('logged in');
 }
 
