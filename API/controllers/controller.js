@@ -11,4 +11,10 @@ async function getItems(req, res, next){
     res.send(response);
 }
 
-module.exports = {getItems}
+async function loginUser(req, res, next){
+    console.log('loginUser endpoint requested');
+    
+    res.send('logged in');
+}
+
+module.exports = {getItems, loginUser}
