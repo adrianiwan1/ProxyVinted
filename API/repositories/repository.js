@@ -15,13 +15,24 @@ async function getLoginData(userLogin){
 async function getUserRole(roleId){
     let query = `SELECT name FROM roles WHERE id = ${roleId}`;
 
-    try{
-        let userRole = await database.sqlQuery(query);
+    let userRole = await database.sqlQuery(query);
 
-        return userRole;
+    return userRole;
+}
+
+async function storeNewSearch(userId, { searchText = '', order = 'newest_first', catalogIDs = '', colorIDs = '', brandIDs = '', sizeIDs = '', materialIDs = '', videoGameRatingIDs = '', statusIDs = '', isForSwap = 0, page = 1, perPage = 24 }){
+    let query = `INSERT INTO searchquery (user, searchText, order, catalogIDs, brandIDs, materialIDs, videoGameRatingIDs, statusIDs, isForSwap, page, perPage)
+                    VALUES  (${userId}, '${searchText}', '${order}', '${catalogIDs}', '${brandIDs}', '${materialIDs}', 
+                                '${videoGameRatingIDs}', '${statusIDs}', ${isForSwap}, ${page}, ${perPage})`;
+
+    try{
+        if(await database.sqlQuery(query))
+            return true;
+        else
+            return false;
     }catch(err){
         throw err;
     }
 }
 
-module.exports = {getLoginData, getUserRole}
+module.exports = {getLoginData, getUserRole, storeNewSearch}

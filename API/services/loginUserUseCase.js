@@ -1,13 +1,7 @@
 const repository = require('../repositories/repository');
 
 async function login(userData){
-    let dbUserData;
-
-    try{
-        dbUserData = await repository.getLoginData(userData.login);
-    }catch(err){
-        throw err;
-    }
+    let dbUserData = await repository.getLoginData(userData.login);
 
     if(dbUserData[0] !== undefined){
 
