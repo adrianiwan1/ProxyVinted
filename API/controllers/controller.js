@@ -14,8 +14,14 @@ async function getItems(req, res, next){
 
 async function loginUser(req, res, next){
     console.log('loginUser endpoint requested');
+    let response;
     
-    let response = await login(req.body);
+    try{
+        response = await login(req.body);
+    }catch(err){
+        return res.status(400).send(err);
+    }
+
     res.send(response);
 }
 

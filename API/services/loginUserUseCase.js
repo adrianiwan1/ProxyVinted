@@ -6,7 +6,7 @@ async function login(userData){
     if(dbUserData[0] !== undefined){
 
         if(isUserBanned(dbUserData[0].isBanned)){
-            return {loginError: false, passwordError: false, dbError: false, userBanned: true};
+            throw new Error('Konto zbanowane');
         }
 
         if(compareLoginData(dbUserData[0], userData)){
@@ -15,13 +15,13 @@ async function login(userData){
             if(userRole[0] !== undefined)
                 return {userId: dbUserData[0].id, login: dbUserData[0].user, role: userRole[0].name};
             else
-                return {loginError: false, passwordError: false, dbError: true, userBanned: false};
+                throw new Error('Błąd łączenia z bazą danych');
         }else{
-            return {loginError: true, passwordError: true, dbError: false, userBanned: false};
+            throw new Error('Błędne hasło');
         }
     }
     
-    return {loginError: true, passwordError: false, dbError: false, userBanned: false};
+    throw new Error('Błędny login');
 }
 
 function compareLoginData(dbUserData, userData){
