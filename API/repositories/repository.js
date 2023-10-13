@@ -3,13 +3,9 @@ const database = require('../database');
 async function getLoginData(userLogin){
     let query = `SELECT id, user, password, role, isBanned FROM user WHERE user = '${userLogin}'`;
 
-    try{
-        let userData = await database.sqlQuery(query);
+    let userData = await database.sqlQuery(query);
 
-        return userData;
-    }catch(err){
-        throw err;
-    }
+    return userData;
 }
 
 async function getUserRole(roleId){
@@ -25,14 +21,7 @@ async function storeNewSearch(userId, { searchText = '', order = 'newest_first',
                     VALUES  (${userId}, '${searchText}', '${order}', '${catalogIDs}', '${brandIDs}', '${materialIDs}', 
                                 '${videoGameRatingIDs}', '${statusIDs}', ${isForSwap}, ${page}, ${perPage})`;
 
-    try{
-        if(await database.sqlQuery(query))
-            return true;
-        else
-            return false;
-    }catch(err){
-        throw err;
-    }
+    return !!await database.sqlQuery(query);
 }
 
 module.exports = {getLoginData, getUserRole, storeNewSearch}

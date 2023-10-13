@@ -7,17 +7,11 @@ const parseVintedURL = ({ searchText = '', order = 'newest_first', domain = 'be'
 }
 
 async function getAllItems(userId = undefined, searchParams){
-    let vintedResult;
-
-    try{
-        vintedResult = await vintedSearch(searchParams);
+    let vintedResult = await vintedSearch(searchParams);
 
         if(userId !== undefined)
           repository.storeNewSearch(userId, searchParams);
-    }catch(err){
-        throw err;
-    }
-
+    
     return vintedResult;
 }
 
