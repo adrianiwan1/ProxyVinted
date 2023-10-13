@@ -1,21 +1,17 @@
 const {random} = require('user-agents')
 const cookie = require('cookie')
-
+const repository = require('../repositories/repository');
 
 const parseVintedURL = ({ searchText = '', order = 'newest_first', domain = 'be', catalogIDs = '', colorIDs = '', brandIDs = '', sizeIDs = '', materialIDs = '', videoGameRatingIDs = '', statusIDs = '', isForSwap = 0, page = 1, perPage = 24 }) => {
     return `https://www.vinted.${domain}/api/v2/catalog/items?search_text=${searchText}&order=${order}&catalog_ids=${catalogIDs}&color_ids=${colorIDs}&brand_ids=${brandIDs}&size_ids=${sizeIDs}&material_ids=${materialIDs}&video_game_rating_ids=${videoGameRatingIDs}&status_ids=${statusIDs}&is_for_swap=${isForSwap}&page=${page}&per_page=${perPage}`
 }
 
-async function getAllItems(searchParams){
-    let vintedResult;
+async function getAllItems(userId = undefined, searchParams){
+    let vintedResult = await vintedSearch(searchParams);
 
-    try{
-        vintedResult = await vintedSearch(searchParams);
-
-    }catch(err){
-        throw err;
-    }
-
+        if(userId !== undefined)
+          repository.storeNewSearch(userId, searchParams);
+    
     return vintedResult;
 }
 
