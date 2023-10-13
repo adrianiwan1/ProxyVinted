@@ -1,12 +1,19 @@
+import React, { useState, useContext } from 'react';
+import LoginModal from '../Components/LoginModal.js';
+import NavbarComponent from '../Components/Navbar.js';
+import { UserSesesionContext } from '../UserSession/SessionContext.js';
 
-import React, { useState } from 'react';
-import MyModal from '../Components/LoginModal.js';
+function Home({ setUserSession }) {
+
+  
+
+  const user = useContext(UserSesesionContext).userSession;
+  console.log(user);
 
 
-function Home() {
   return (
-    <div className="App">
-        <MyModal />
+    <div className="A">
+      <NavbarComponent setShowLoginModla={setShowLoginModla} />
     </div>
   );
 }
