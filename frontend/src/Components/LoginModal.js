@@ -10,7 +10,7 @@ function LoginModal({ setShowLoginModla, showLoginModla, setUserSession }) {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [loginErrors, setLoginErrors] = useState('');
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -29,58 +29,54 @@ function LoginModal({ setShowLoginModla, showLoginModla, setUserSession }) {
         setLoginErrors(error.response.data);
       });
   };
-  
+
   return (
-    <>
-      <Modal show={showLoginModla} onHide={() => setShowLoginModla(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>LOGOWANIE</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleSubmit}>
-            <InputGroup className="mb-3">
-              <InputGroup.Text>
-                <FontAwesomeIcon icon={faUser} />
-              </InputGroup.Text>
-              <Form.Control
-                className="placeholder-white"
-                type="text"
-                placeholder="Login"
-                value={login}
-                onChange={(e) => setLogin(e.target.value)}
-                required
-              />
-            </InputGroup>
-            <InputGroup className="mb-3">
-              <InputGroup.Text >
-                <FontAwesomeIcon icon={faLock} />
-              </InputGroup.Text>
-              <Form.Control
-                className="placeholder-white"
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
+    <Modal show={showLoginModla} onHide={() => setShowLoginModla(false)} centered>
+      <Modal.Header className="d-flex justify-content-center pt-4">
+        <Modal.Title >LOGOWANIE</Modal.Title>
+      </Modal.Header>
+      <Modal.Body className="pt-4 pb-4">
+        <Form onSubmit={handleSubmit}>
+          <InputGroup className="mb-3">
+            <InputGroup.Text>
+              <FontAwesomeIcon icon={faUser} />
+            </InputGroup.Text>
+            <Form.Control
+              className="placeholder-white"
+              type="text"
+              placeholder="Login"
+              value={login}
+              onChange={(e) => setLogin(e.target.value)}
+              required
+            />
+          </InputGroup>
+          <InputGroup className="mb-3">
+            <InputGroup.Text >
+              <FontAwesomeIcon icon={faLock} />
+            </InputGroup.Text>
+            <Form.Control
+              className="placeholder-white"
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </InputGroup>
+          <div className="text-center mt-2"><a href="">Forgot your password?</a></div>
 
-              />
-            </InputGroup>
-            <div className="text-center mt-2"><a href="">Forgot your password?</a></div>
+          {loginErrors && (
+            <Alert className="mt-3" variant="danger">
+              <div>{loginErrors}</div>
+            </Alert>
+          )}
 
-            {loginErrors  && (
-              <Alert className="mt-3" variant="danger">
-                <div>{loginErrors}</div>
-              </Alert>
-            )}
-
-            <Button className="mt-3 col-12" variant="primary" type="submit">
-              Zaloguj się
-            </Button>
-          </Form>
-        </Modal.Body>
-      </Modal>
-
-    </>
+          <Button className="mt-3 col-12" variant="primary" type="submit ">
+            Zaloguj się
+          </Button>
+        </Form>
+      </Modal.Body>
+    </Modal>
   );
 }
 

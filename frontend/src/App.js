@@ -20,16 +20,15 @@ function App() {
           <Route path="/" element={
             <PrivateRoute
               path="/home"
-              component={Home}
-              showLoginModla={showLoginModla}
+              component={<Home />}
               setShowLoginModla={setShowLoginModla}
             />
           }>
           </Route>
           <Route path="*" element={<div>Error 404 Page not found</div>}></Route>
         </Routes>
+        <LoginModal setUserSession={setUserSession} setShowLoginModla={setShowLoginModla} showLoginModla={showLoginModla} />
       </UserSesesionContext.Provider>
-      <LoginModal setUserSession={setUserSession} setShowLoginModla={setShowLoginModla} showLoginModla={showLoginModla} />
     </div>
   );
 }
