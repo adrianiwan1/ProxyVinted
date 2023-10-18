@@ -2,23 +2,26 @@
   color: #999999 !important;
 }
 
-.input-container {
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
-
-.input-container input {
-  flex: 1;
-}
 
 .searching-icon {
-  fill: rgb(212, 212, 212);
   cursor: pointer;
-  margin-left: 5px
+  margin-left: 0; 
 }
 
-.user-profile-icon {
+.fill-color-212 {
   fill: rgb(212, 212, 212);
 }
 
+.fg--search {
+  position: relative;
+}
+
+.fg--search button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  position:absolute;
+  top: 0;
+  right: 0;
+  padding: 7px 12px;
+}
