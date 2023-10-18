@@ -6,7 +6,7 @@ const parseVintedURL = ({ searchText = '', order = 'newest_first', domain = 'be'
     return `https://www.vinted.${domain}/api/v2/catalog/items?search_text=${searchText}&order=${order}&catalog_ids=${catalogIDs}&color_ids=${colorIDs}&brand_ids=${brandIDs}&size_ids=${sizeIDs}&material_ids=${materialIDs}&video_game_rating_ids=${videoGameRatingIDs}&status_ids=${statusIDs}&is_for_swap=${isForSwap}&page=${page}&per_page=${perPage}`
 }
 
-async function getAllItems(userId = undefined, searchParams){
+async function getAllItems(searchParams = {}, userId = undefined){
     let vintedResult = await vintedSearch(searchParams);
 
         if(userId !== undefined)
