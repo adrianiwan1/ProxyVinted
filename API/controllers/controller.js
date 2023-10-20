@@ -33,7 +33,7 @@ async function getSingleItem(req, res, next){
 
     let response;
     try{
-        response = await getItem(req.params.itemId);
+        response = await getItem(req.query);
     }catch(err){
         res.status(400).send(err.message);
     }
