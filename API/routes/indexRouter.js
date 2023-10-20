@@ -5,7 +5,7 @@ const { getItems, loginUser, getSingleItem } = require('../controllers/controlle
 /* GET GetItems /getItems */
 router.get('/getItems', getItems);
 
-router.get('/item/:itemId', getSingleItem);
+router.get('/item', getSingleItem);
 
 /* POST Login /login */
 router.post('/login', loginUser);
