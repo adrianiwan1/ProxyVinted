@@ -1,5 +1,4 @@
 export const VideoGameRatings = [
-  [
     { id: 175, title: "AO – Tylko dla dorosłych" },
     { id: 170, title: "E – Dla wszystkich" },
     { id: 171, title: "E10+ – Od 10 lat" },
@@ -17,11 +16,9 @@ export const VideoGameRatings = [
     { id: 169, title: "USK 18" },
     { id: 166, title: "USK 6" },
     { id: 176, title: "nieokreślone" },
-  ],
 ];
 
 export const brands = [
-  [
     { id: 53, title: "Nike" },
     { id: 12, title: "Zara" },
     { id: 14, title: "adidas" },
@@ -34,7 +31,6 @@ export const brands = [
     { id: 20, title: "GUESS" },
     { id: 304, title: "Lacoste" },
     { id: 6005, title: "Michael Kors" },
-  ],
 ];
 
 export const materials = [

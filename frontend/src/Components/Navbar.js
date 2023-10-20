@@ -2,8 +2,7 @@ import { useState } from "react";
 import SearchOptionsModal from "./SearchOptionsModal";
 import { Dropdown } from "react-bootstrap";
 
-
-function NavbarComponent() {
+function NavbarComponent({ setFoundItems }) {
 
     const [showSearchOptionsModal, setShowSearchOptionsModal] = useState(false);
 
@@ -19,8 +18,14 @@ function NavbarComponent() {
         brandIDs: ''
     }
 
+    async function vintedSearch() {
+        const res = await fetch('http://localhost:5000/api/getItems?' + new URLSearchParams(searchingState))
+        const json = await res.json()
+        setFoundItems(json.items || []);
+    }
+
     return (
-        <nav className=" bg-body-tertiary col-12 p-2">
+        <nav className=" bg-body-tertiary col-12 p-2 position-sticky top-0 navbar-holder">
             <div className="d-flex col-12">
                 <div className="d-flex col-12  justify-content-between align-items-center" >
                     <div className="ms-3">
@@ -34,24 +39,24 @@ function NavbarComponent() {
                                 </button>
                             </div>
                             <div class="input-container col-9 form-group fg--search">
-                                <input 
-                                    placeholder="search for item" 
-                                    class="form-control ps-3 col-12 p-2 rounded-pill pe-5" 
+                                <input
+                                    placeholder="search for item"
+                                    class="form-control ps-3 col-12 p-2 rounded-pill pe-5"
                                     type="text"
                                     onChange={(e) => setSearchText(e.target.value)}
-                                    />
-                                <button>
-                                <svg
-                                    class="searching-icon fill-color-212"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    height="24"
-                                    viewBox="0 -960 960 960"
-                                    width="24"
-                                >
-                                    <path
-                                        d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"
-                                    />
-                                </svg>
+                                />
+                                <button onClick={() => vintedSearch()}>
+                                    <svg
+                                        class="searching-icon fill-color-212"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        height="24"
+                                        viewBox="0 -960 960 960"
+                                        width="24"
+                                    >
+                                        <path
+                                            d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"
+                                        />
+                                    </svg>
                                 </button>
                             </div>
                         </div>

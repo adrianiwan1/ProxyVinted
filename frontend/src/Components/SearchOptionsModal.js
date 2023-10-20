@@ -3,9 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { catalogChildrenTree, catalogs, colors, materials, status, brands, VideoGameRatings } from '../lib/lib'
 
-
 function SearchOptionsModal({ searchingState, onHideSearchOptionsModal, showSearchOptionsModal }) {
-
 
     //Searching Reducer *ZMIENIA STANY JAK COŚ*
     const searchingReducer = (searchingStates, action) => {
@@ -28,7 +26,6 @@ function SearchOptionsModal({ searchingState, onHideSearchOptionsModal, showSear
     }
 
     const [searchingStates, dispatch] = useReducer(searchingReducer, searchingState)
-    console.log(searchingStates)
 
     return (
 
@@ -91,7 +88,7 @@ function SearchOptionsModal({ searchingState, onHideSearchOptionsModal, showSear
                 </div>
             </Modal.Body>
             <Modal.Footer>
-                <Button>Save</Button>
+                <Button onClick={() => onHideSearchOptionsModal(false)}>Save</Button>
             </Modal.Footer>
         </Modal>
 

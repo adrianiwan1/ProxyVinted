@@ -5,7 +5,7 @@
 
 .searching-icon {
   cursor: pointer;
-  margin-left: 0; 
+  margin-left: 0;
 }
 
 .fill-color-212 {
@@ -20,8 +20,16 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  position:absolute;
+  position: absolute;
   top: 0;
   right: 0;
   padding: 7px 12px;
+}
+
+.card-button {
+  margin-top: auto;
+}
+.navbar-holder{
+  z-index: 1;
+
 }
