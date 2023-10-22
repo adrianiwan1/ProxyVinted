@@ -1,4 +1,4 @@
-const repository = require('../repositories/repository');
+const repository = require('../repositories/repository')
 
 module.exports.getUserRecommendation = function ({ id } = {}) {
   if (!id) throw new Error('userID required!')

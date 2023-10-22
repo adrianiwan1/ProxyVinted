@@ -1,15 +1,15 @@
-const express = require('express');
-const router = express.Router();
-const { getItems, loginUser, getSingleItem, getRecommendation } = require('../controllers/controller');
+const express = require('express')
+const router = express.Router()
+const { getItems, loginUser, getSingleItem, getRecommendation } = require('../controllers/controller')
 
 /* GET GetItems /getItems */
-router.get('/getItems', getItems);
+router.get('/getItems', getItems)
 
-router.get('/item', getSingleItem);
+router.get('/item', getSingleItem)
 
 /* POST Login /login */
-router.post('/login', loginUser);
+router.post('/login', loginUser)
 
 router.get('/recommendation', getRecommendation)
 
-module.exports = router;
+module.exports = router
