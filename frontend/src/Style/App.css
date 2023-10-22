@@ -1,18 +1,35 @@
-.App {
-  text-align: center;
-}
-
-
-body {
-  background: linear-gradient(to bottom right, #111111, #888888);
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .placeholder-white::placeholder {
   color: #999999 !important;
+}
+
+
+.searching-icon {
+  cursor: pointer;
+  margin-left: 0;
+}
+
+.fill-color-212 {
+  fill: rgb(212, 212, 212);
+}
+
+.fg--search {
+  position: relative;
+}
+
+.fg--search button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 7px 12px;
+}
+
+.card-button {
+  margin-top: auto;
+}
+.navbar-holder{
+  z-index: 1;
+
 }

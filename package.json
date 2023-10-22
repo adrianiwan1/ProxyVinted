@@ -1,0 +1,19 @@
+{
+  "name": "proxyvinted",
+  "version": "1.0.0",
+  "private": true,
+
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "scripts": {
+    "install:frontend": "cd frontend && npm install",
+    "install:backend": "cd API && npm install",
+    "start:frontend": "cd frontend && npm start",
+    "start:backend": "node API/bin/www",
+    "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
+    "build:frontend":"cd frontend && npm run build",
+    "start:frontend-prod": "cd frontend && npx serve -s build",
+    "start:prod":"concurrently \"npm run start:frontend-prod\" \"npm run start:backend\""
+  }
+}

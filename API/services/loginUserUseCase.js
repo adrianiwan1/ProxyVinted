@@ -1,57 +1,51 @@
-const repository = require('../repositories/repository');
+const repository = require('../repositories/repository')
 
-async function login(userData){
-    let dbUserData = await repository.getLoginData(userData.login);
+async function login (userData) {
+  const dbUserData = await repository.getLoginData(userData.login)
 
-    if(dbUserData[0] !== undefined){
-
-        if(isUserBanned(dbUserData[0].isBanned)){
-            throw new Error('Konto zbanowane');
-        }
-
-        if(compareLoginData(dbUserData[0], userData)){
-            let userRole = await repository.getUserRole(dbUserData[0].role);
-            
-            if(userRole[0] !== undefined)
-                return {userId: dbUserData[0].id, login: dbUserData[0].user, role: userRole[0].name};
-            else
-                throw new Error('Błąd łączenia z bazą danych');
-        }else{
-            throw new Error('Błędne hasło');
-        }
-    }
-    
-    throw new Error('Błędny login');
-}
-
-function compareLoginData(dbUserData, userData){
-    let loginCompleated = true;
-
-    if(dbUserData !== undefined){
-
-        if(dbUserData.user !== userData.login){
-            loginCompleated = false;
-        }
-
-        if(dbUserData.password !== userData.password){
-            loginCompleated = false;
-        }
-
-    }else{
-        loginCompleated = false;
+  if (dbUserData[0] !== undefined) {
+    if (isUserBanned(dbUserData[0].isBanned)) {
+      throw new Error('Konto zbanowane')
     }
 
-    return loginCompleated;
+    if (compareLoginData(dbUserData[0], userData)) {
+      const userRole = await repository.getUserRole(dbUserData[0].role)
+
+      if (userRole[0] !== undefined) { return { userId: dbUserData[0].id, login: dbUserData[0].user, role: userRole[0].name } } else { throw new Error('Błąd łączenia z bazą danych') }
+    } else {
+      throw new Error('Błędne hasło')
+    }
+  }
+
+  throw new Error('Błędny login')
 }
 
-function isUserBanned(userBanStatus){
-    let isBanned = false;
+function compareLoginData (dbUserData, userData) {
+  let loginCompleated = true
 
-    if(userBanStatus === 1){
-        isBanned = true;
+  if (dbUserData !== undefined) {
+    if (dbUserData.user !== userData.login) {
+      loginCompleated = false
     }
 
-    return isBanned;
+    if (dbUserData.password !== userData.password) {
+      loginCompleated = false
+    }
+  } else {
+    loginCompleated = false
+  }
+
+  return loginCompleated
 }
 
-module.exports = {login}
+function isUserBanned (userBanStatus) {
+  let isBanned = false
+
+  if (userBanStatus === 1) {
+    isBanned = true
+  }
+
+  return isBanned
+}
+
+module.exports = { login }
