@@ -7,7 +7,7 @@ function NavbarComponent({ setFoundItems }) {
 
     const [showSearchOptionsModal, setShowSearchOptionsModal] = useState(false);
 
-    const {userSession} = useContext(UserSesesionContext)
+    const { userSession } = useContext(UserSesesionContext)
 
     async function vintedSearch() {
         const res = await fetch('http://localhost:5000/api/getItems?' + new URLSearchParams(searchingState))
@@ -47,6 +47,13 @@ function NavbarComponent({ setFoundItems }) {
         searchText: ''
     })
 
+    function searchingByEnter(e) {
+        if (e.key === 'Enter') {
+            dispatch({ type: 'CHANGE_SEARCH_TEXT', newState: e.target.value })
+            vintedSearch()
+        }
+    }
+
     return (
         <nav className=" bg-body-tertiary col-12 p-2 position-sticky top-0 navbar-holder">
             <div className="d-flex col-12">
@@ -66,6 +73,7 @@ function NavbarComponent({ setFoundItems }) {
                                     placeholder="search for item"
                                     class="form-control ps-3 col-12 p-2 rounded-pill pe-5"
                                     type="text"
+                                    onKeyDown={searchingByEnter}
                                     onChange={(e) => dispatch({ type: 'CHANGE_SEARCH_TEXT', newState: e.target.value })}
                                 />
                                 <button onClick={() => vintedSearch()}>
