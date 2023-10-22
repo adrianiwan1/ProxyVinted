@@ -1,27 +1,25 @@
-const database = require('../database');
+const database = require('../database')
 
-async function getLoginData(userLogin){
-    let query = `SELECT id, user, password, role, isBanned FROM user WHERE user = '${userLogin}'`;
+function getLoginData (userLogin) {
+  const query = `SELECT id, user, password, role, isBanned FROM user WHERE user = '${userLogin}'`
 
-    let userData = await database.sqlQuery(query);
-
-    return userData;
+  return database.sqlQuery(query)
 }
 
-async function getUserRole(roleId){
-    let query = `SELECT name FROM roles WHERE id = ${roleId}`;
+function getUserRole (roleId) {
+  const query = `SELECT name FROM roles WHERE id = ${roleId}`
 
-    let userRole = await database.sqlQuery(query);
-
-    return userRole;
+  return database.sqlQuery(query)
 }
 
-async function storeNewSearch(userId, { searchText = '', order = 'newest_first', catalogIDs = '', colorIDs = '', brandIDs = '', sizeIDs = '', materialIDs = '', videoGameRatingIDs = '', statusIDs = '', isForSwap = 0, page = 1, perPage = 24 }){
-    let query = `INSERT INTO searchquery (user, searchText, order, catalogIDs, brandIDs, materialIDs, videoGameRatingIDs, statusIDs, isForSwap, page, perPage)
-                    VALUES  (${userId}, '${searchText}', '${order}', '${catalogIDs}', '${brandIDs}', '${materialIDs}', 
-                                '${videoGameRatingIDs}', '${statusIDs}', ${isForSwap}, ${page}, ${perPage})`;
+async function storeNewSearch (userId, { searchText = '', order = 'newest_first', catalogIDs = '', colorIDs = '', brandIDs = '', sizeIDs = '', materialIDs = '', videoGameRatingIDs = '', statusIDs = '', isForSwap = 0, page = 1, perPage = 24 }) {
+  const query = `INSERT INTO searchquery (user, searchText, \`order\`, catalogIDs, brandIDs, materialIDs, videoGameRatingIDs, statusIDs, isForSwap, page, perPage) VALUES (${userId}, '${searchText}', '${order}', '${catalogIDs}', '${brandIDs}', '${materialIDs}', '${videoGameRatingIDs}', '${statusIDs}', ${isForSwap}, ${page}, ${perPage})`
 
-    return !!await database.sqlQuery(query);
+  return !!await database.sqlQuery(query)
 }
 
-module.exports = {getLoginData, getUserRole, storeNewSearch}
+function getUserRecommendation (userId) {
+  return database.sqlQuery(`SELECT catalogIDs FROM searchquery WHERE user=${userId} GROUP BY catalogIDs ORDER BY catalogIDs DESC LIMIT 1`)
+}
+
+module.exports = { getLoginData, getUserRole, storeNewSearch, getUserRecommendation }
