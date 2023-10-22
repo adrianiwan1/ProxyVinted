@@ -17,11 +17,13 @@ async function getUserRole(roleId){
 }
 
 async function storeNewSearch(userId, { searchText = '', order = 'newest_first', catalogIDs = '', colorIDs = '', brandIDs = '', sizeIDs = '', materialIDs = '', videoGameRatingIDs = '', statusIDs = '', isForSwap = 0, page = 1, perPage = 24 }){
-    let query = `INSERT INTO searchquery (user, searchText, order, catalogIDs, brandIDs, materialIDs, videoGameRatingIDs, statusIDs, isForSwap, page, perPage)
-                    VALUES  (${userId}, '${searchText}', '${order}', '${catalogIDs}', '${brandIDs}', '${materialIDs}', 
-                                '${videoGameRatingIDs}', '${statusIDs}', ${isForSwap}, ${page}, ${perPage})`;
+    let query = `INSERT INTO searchquery (user, searchText, \`order\`, catalogIDs, brandIDs, materialIDs, videoGameRatingIDs, statusIDs, isForSwap, page, perPage) VALUES (${userId}, '${searchText}', '${order}', '${catalogIDs}', '${brandIDs}', '${materialIDs}', '${videoGameRatingIDs}', '${statusIDs}', ${isForSwap}, ${page}, ${perPage})`;
 
     return !!await database.sqlQuery(query);
 }
 
-module.exports = {getLoginData, getUserRole, storeNewSearch}
+function getUserRecommendation (userId) {
+    return database.sqlQuery(`SELECT catalogIDs FROM searchquery WHERE user=${userId} GROUP BY catalogIDs ORDER BY catalogIDs DESC LIMIT 1`)
+}
+
+module.exports = {getLoginData, getUserRole, storeNewSearch, getUserRecommendation}

@@ -1,6 +1,7 @@
 const { getAllItems } = require('../services/getAllItemsUseCase.js');
 const { getItem } = require('../services/getSingleItmeUseCase.js');
 const { login } = require('../services/loginUserUseCase.js');
+const { getUserRecommendation } = require('../services/recommendationCase.js');
 
 async function getItems(req, res, next){
     console.log('getItems endpoint requested');
@@ -41,4 +42,15 @@ async function getSingleItem(req, res, next){
     res.send(response);
 }
 
-module.exports = {getItems, loginUser, getSingleItem}
+async function getRecommendation(req, res, next) {
+    let response;
+    try{
+        response = await getUserRecommendation(req.query);
+    }catch(err){
+        res.status(400).send(err.message);
+    }
+
+    res.send(response);
+}
+
+module.exports = {getItems, loginUser, getSingleItem, getRecommendation}

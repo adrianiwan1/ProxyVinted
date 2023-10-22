@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { Link } from "react-router-dom";
 
-function ItemCard({ item, setItemDetails, itemDetails }) {
+function ItemCard({ item }) {
 
     return (
         <Card className="m-3 flex flex-column p-1" style={{ width: '20rem' }} >
@@ -25,8 +25,8 @@ function ItemCard({ item, setItemDetails, itemDetails }) {
                         <div>{item.brand_title}</div>
                     </div>
                 </Card.Text>
-                <div className="mt-auto card-button" onClick={() => setItemDetails({ details: item })}>
-                    <Link to='/Details' >
+                <div className="mt-auto card-button">
+                    <Link to={'/' + item.id} >
                         <Button variant="primary" className="col-12" >
                             Szczegóły
                         </Button>

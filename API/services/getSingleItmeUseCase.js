@@ -1,7 +1,7 @@
 const {random} = require('user-agents')
 const cookie = require('cookie')
 
-const parseVintedURL = ({ domain = 'be', itemId = '' }) => {
+const parseVintedURL = ({ domain = 'pl', itemId = '' }) => {
     return `https://www.vinted.${domain}/api/v2/items/${itemId}`;
 }
 async function getItem(itemId){
@@ -11,7 +11,7 @@ async function getItem(itemId){
 }
 
 async function vintedSearch(searchParams) {
-    const c = await fetchCookie('be')
+    const c = await fetchCookie('pl')
     const response = await fetch(parseVintedURL(searchParams), {
       headers: {
         'user-agent': random(),
@@ -24,7 +24,7 @@ async function vintedSearch(searchParams) {
     return response.json()
   }
 
-async function fetchCookie(domain = 'be') {
+async function fetchCookie(domain = 'pl') {
     const response = await fetch(`https://vinted.${domain}`)
     const sessionCookie = response.headers.get('set-cookie')
     if (!sessionCookie) throw new Error('Session cookie not found')
