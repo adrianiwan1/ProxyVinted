@@ -1,27 +1,57 @@
-import { useState } from "react";
+import { useState, useContext, useEffect, useReducer } from "react";
 import SearchOptionsModal from "./SearchOptionsModal";
 import { Dropdown } from "react-bootstrap";
+import { UserSesesionContext } from "../UserSession/SessionContext";
 
 function NavbarComponent({ setFoundItems }) {
 
     const [showSearchOptionsModal, setShowSearchOptionsModal] = useState(false);
 
-    const [searchText, setSearchText] = useState('');
-
-    //states for details Searching
-    const searchingState = {
-        colorIDs: '',
-        materialIDs: '',
-        statusIDs: '',
-        catalogIDs: '',
-        videoGameRatingIDs: '',
-        brandIDs: ''
-    }
+    const { userSession } = useContext(UserSesesionContext)
 
     async function vintedSearch() {
         const res = await fetch('http://localhost:5000/api/getItems?' + new URLSearchParams(searchingState))
         const json = await res.json()
         setFoundItems(json.items || []);
+    }
+
+    const searchingReducer = (searchingStates, action) => {
+        switch (action.type) {
+            case 'CHANGE_SEARCH_TEXT':
+                return { ...searchingStates, searchText: action.newState }
+            case 'CHANGE_SELECTED_COLOR':
+                return { ...searchingStates, colorIDs: action.newState }
+            case 'CHANGE_SELECTED_MATERIAL':
+                return { ...searchingStates, materialIDs: action.newState }
+            case 'CHANGE_SELECTED_ITEMSTATUS':
+                return { ...searchingStates, statusIDs: action.newState }
+            case 'CHANGE_SELECTED_CATALOGUE':
+                return { ...searchingStates, catalogIDs: action.newState }
+            case 'CHANGE_SELECTED_VIDEOGAMERATING':
+                return { ...searchingStates, videoGameRatingIDs: action.newState }
+            case 'CHANGE_SELECTED_BRAND':
+                return { ...searchingStates, brandIDs: action.newState }
+            default:
+                return
+        }
+    }
+
+    const [searchingState, dispatch] = useReducer(searchingReducer, {
+        userId: userSession.userId,
+        colorIDs: '',
+        materialIDs: '',
+        statusIDs: '',
+        catalogIDs: '',
+        videoGameRatingIDs: '',
+        brandIDs: '',
+        searchText: ''
+    })
+
+    function searchingByEnter(e) {
+        if (e.key === 'Enter') {
+            dispatch({ type: 'CHANGE_SEARCH_TEXT', newState: e.target.value })
+            vintedSearch()
+        }
     }
 
     return (
@@ -43,7 +73,8 @@ function NavbarComponent({ setFoundItems }) {
                                     placeholder="search for item"
                                     class="form-control ps-3 col-12 p-2 rounded-pill pe-5"
                                     type="text"
-                                    onChange={(e) => setSearchText(e.target.value)}
+                                    onKeyDown={searchingByEnter}
+                                    onChange={(e) => dispatch({ type: 'CHANGE_SEARCH_TEXT', newState: e.target.value })}
                                 />
                                 <button onClick={() => vintedSearch()}>
                                     <svg
@@ -69,13 +100,14 @@ function NavbarComponent({ setFoundItems }) {
                             </Dropdown.Toggle>
                             <Dropdown.Menu className="fs-5">
                                 <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
-                                <Dropdown.Item href="#/action-2">Sign out</Dropdown.Item>
+                                <Dropdown.Item href="/">Sign out</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                     </div>
                 </div>
             </div>
             <SearchOptionsModal
+                dispatch={dispatch}
                 searchingState={searchingState}
                 showSearchOptionsModal={showSearchOptionsModal}
                 onHideSearchOptionsModal={setShowSearchOptionsModal}

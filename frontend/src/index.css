@@ -1,0 +1,8 @@
+html, body, div#root, .home {
+  min-height: 100vh;
+}
+
+.home{
+  display: flex;
+  flex-direction: column;
+}

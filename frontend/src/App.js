@@ -12,28 +12,23 @@ function App() {
   //User session state
   const [userSession, setUserSession] = useState('');
   const [showLoginModla, setShowLoginModla] = useState(false);
-  const [itemDetails, setItemDetails] = useState({ details: null })
-
-  console.log(itemDetails)
 
   return (
-    <div className="">
       <UserSesesionContext.Provider value={{ userSession, setUserSession }}>
         <Routes>
           <Route path="/" element={
             <PrivateRoute
               path="/home"
-              component={<Home setItemDetails={setItemDetails} itemDetails={itemDetails}/>}
+              component={<Home/>}
               setShowLoginModla={setShowLoginModla}
             />
           }>
           </Route>
-          <Route path="/Details" element={<DetailsPage itemDetails={itemDetails} />}></Route>
+          <Route path="/:id" element={<DetailsPage />}></Route>
           <Route path="*" element={<div>Error 404 Page not found</div>}></Route>
         </Routes>
         <LoginModal setUserSession={setUserSession} setShowLoginModla={setShowLoginModla} showLoginModla={showLoginModla} />
       </UserSesesionContext.Provider>
-    </div>
   );
 }
 

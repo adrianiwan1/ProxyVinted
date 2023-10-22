@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { Link } from "react-router-dom";
 
-function ItemCard({ item, setItemDetails, itemDetails }) {
+function ItemCard({ item }) {
 
     return (
         <Card className="m-3 flex flex-column p-1" style={{ width: '20rem' }} >
@@ -14,7 +14,15 @@ function ItemCard({ item, setItemDetails, itemDetails }) {
                     {item.user.login}
                 </div>
             </div>
-            <Card.Img variant="top" style={{ objectFit: "cover", height: '400px' }} src={item.photo.url} />
+            <Card.Img variant="top"  style={{ objectFit: "cover", height: '200px', width: '100%'}} src={item.photo.url} />
+            {/* <Card>
+                <Card.Img
+                    variant="top"
+                    className="img-fluid"
+                    style={{ maxHeight: '200px', width: '100%' }}
+                    src={item.photo.url}
+                />
+            </Card> */}
             <Card.Body className="d-flex flex-column">
                 <Card.Title style={{ fontSize: "28px", color: '#FFFFFF' }}>{item.title}</Card.Title>
                 <Card.Text>
@@ -25,8 +33,8 @@ function ItemCard({ item, setItemDetails, itemDetails }) {
                         <div>{item.brand_title}</div>
                     </div>
                 </Card.Text>
-                <div className="mt-auto card-button" onClick={() => setItemDetails({ details: item })}>
-                    <Link to='/Details' >
+                <div className="mt-auto card-button">
+                    <Link to={'/' + item.id} >
                         <Button variant="primary" className="col-12" >
                             Szczegóły
                         </Button>

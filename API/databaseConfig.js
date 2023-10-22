@@ -1,13 +1,13 @@
-var mysql = require("mysql");
+const mysql = require('mysql')
 
-const dbConfig = {};
+const dbConfig = {}
 
 dbConfig.databasePool = mysql.createPool({
-    connectionLimit: 5,
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'vintedproxy'
+  connectionLimit: 5,
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'vintedproxy'
 })
 
-module.exports = dbConfig;
+module.exports = dbConfig

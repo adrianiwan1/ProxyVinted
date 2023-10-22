@@ -3,12 +3,11 @@ import React from "react";
 function Footer() {
 
     return (
-        <footer class="d-flex flex-row mt-5 border-top pt-4" style={{backgroundColor: "rgb(43, 48, 53)"}}>
+        <footer class="d-flex flex-row mt-auto border-top pt-4" style={{backgroundColor: "rgb(43, 48, 53)"}}>
             <div class="col mb-3">
                 <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
                 </a>
             </div>
-
 
             <div class="col mb-3">
                 <h5>Section</h5>
