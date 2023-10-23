@@ -11,8 +11,15 @@ function NavbarComponent({ setFoundItems }) {
 
     async function vintedSearch() {
         const res = await fetch('http://localhost:5000/api/getItems?' + new URLSearchParams(searchingState))
-        const json = await res.json()
-        setFoundItems(json.items || []);
+        let { items } = await res.json()
+
+        if (items?.length && searchingState.order === 'favorites') {
+            items.sort((a, b) => {
+                return (b.favourite_count || 0) - (a.favourite_count || 0)
+            })
+        }
+ 
+        setFoundItems(items || []);
     }
 
     const searchingReducer = (searchingStates, action) => {
@@ -31,6 +38,8 @@ function NavbarComponent({ setFoundItems }) {
                 return { ...searchingStates, videoGameRatingIDs: action.newState }
             case 'CHANGE_SELECTED_BRAND':
                 return { ...searchingStates, brandIDs: action.newState }
+            case 'CHANGE_SELECTED_ORDER':
+                return { ...searchingStates, order: action.newState }
             default:
                 return
         }
@@ -44,7 +53,8 @@ function NavbarComponent({ setFoundItems }) {
         catalogIDs: '',
         videoGameRatingIDs: '',
         brandIDs: '',
-        searchText: ''
+        searchText: '',
+        order: ''
     })
 
     function searchingByEnter(e) {
