@@ -22,4 +22,16 @@ function getUserRecommendation (userId) {
   return database.sqlQuery(`SELECT catalogIDs FROM searchquery WHERE user=${userId} GROUP BY catalogIDs ORDER BY catalogIDs DESC LIMIT 1`)
 }
 
-module.exports = { getLoginData, getUserRole, storeNewSearch, getUserRecommendation }
+async function setNewBan(userId) {
+  const query = `UPDATE user SET isBanned = 1 WHERE id = ${userId}`
+
+  return await database.sqlQuery(query);
+}
+
+
+function getAllUsers() {
+  const query = `SELECT id, user FROM user`
+
+  return database.sqlQuery(query)
+}
+module.exports = { getLoginData, getUserRole, storeNewSearch, getUserRecommendation, setNewBan, getAllUsers }

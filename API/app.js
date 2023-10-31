@@ -3,12 +3,27 @@ const express = require('express')
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
-
+const session = require('express-session')
 const indexRouter = require('./routes/indexRouter')
 const cors = require('cors')
 
 const app = express()
-app.use(cors())
+app.use(session({
+  key: 'user',
+  name: 'userSession',
+  secret: 'samesxhonda',
+  resave: false,
+  
+  saveUninitialized: true,
+  cookie: {
+    path: '/',
+  }
+}))
+
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))

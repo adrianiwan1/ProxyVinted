@@ -23,6 +23,8 @@ function Home({ setItemDetails, itemDetails }) {
     })()
   }, [])
 
+  console.log(userSession);
+
   return (
     <div className="home">
       <NavbarComponent setFoundItems={setFoundItems} />
