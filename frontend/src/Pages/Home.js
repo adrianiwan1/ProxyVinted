@@ -23,6 +23,9 @@ function Home() {
     })()
   }, [])
 
+
+
+
   //Pagination 
   const itemsPerPage = 10; 
   const [currentPage, setCurrentPage] = useState(0);
@@ -35,6 +38,7 @@ function Home() {
 
   const offset = currentPage * itemsPerPage;
   const itemsToDisplay = foundItems.slice(offset, offset + itemsPerPage);
+
 
   return (
     <div className="home">
