@@ -8,12 +8,19 @@ function NavbarComponent({ setFoundItems }) {
 
     const [showSearchOptionsModal, setShowSearchOptionsModal] = useState(false);
 
-    const {userSession} = useContext(UserSesesionContext)
+    const { userSession } = useContext(UserSesesionContext)
 
     async function vintedSearch() {
         const res = await fetch('http://localhost:5000/api/getItems?' + new URLSearchParams(searchingState))
-        const json = await res.json()
-        setFoundItems(json.items || []);
+        let { items } = await res.json()
+
+        if (items?.length && searchingState.order === 'favorites') {
+            items.sort((a, b) => {
+                return (b.favourite_count || 0) - (a.favourite_count || 0)
+            })
+        }
+ 
+        setFoundItems(items || []);
     }
 
     function handleLogout() {
@@ -39,6 +46,8 @@ function NavbarComponent({ setFoundItems }) {
                 return { ...searchingStates, videoGameRatingIDs: action.newState }
             case 'CHANGE_SELECTED_BRAND':
                 return { ...searchingStates, brandIDs: action.newState }
+            case 'CHANGE_SELECTED_ORDER':
+                return { ...searchingStates, order: action.newState }
             default:
                 return
         }
@@ -52,8 +61,16 @@ function NavbarComponent({ setFoundItems }) {
         catalogIDs: '',
         videoGameRatingIDs: '',
         brandIDs: '',
-        searchText: ''
+        searchText: '',
+        order: ''
     })
+
+    function searchingByEnter(e) {
+        if (e.key === 'Enter') {
+            dispatch({ type: 'CHANGE_SEARCH_TEXT', newState: e.target.value })
+            vintedSearch()
+        }
+    }
 
     return (
         <nav className=" bg-body-tertiary col-12 p-2 position-sticky top-0 navbar-holder">
@@ -74,6 +91,7 @@ function NavbarComponent({ setFoundItems }) {
                                     placeholder="search for item"
                                     class="form-control ps-3 col-12 p-2 rounded-pill pe-5"
                                     type="text"
+                                    onKeyDown={searchingByEnter}
                                     onChange={(e) => dispatch({ type: 'CHANGE_SEARCH_TEXT', newState: e.target.value })}
                                 />
                                 <button onClick={() => vintedSearch()}>
