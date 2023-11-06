@@ -1,6 +1,7 @@
 const repository = require('../repositories/repository')
 
 async function banUser(userId = undefined) {
+    console.log(userId)
     if(userId === undefined) throw new Error('userId required!');
     
     return await repository.setNewBan(userId);

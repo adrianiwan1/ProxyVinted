@@ -1,33 +1,14 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState } from "react";
 import NavbarComponent from '../Components/Navbar.js';
 import ItemCard from '../Components/ItemCard.js'
 import Footer from '../Components/Footer.js'
-import { UserSesesionContext } from "../UserSession/SessionContext.js";
 import ReactPaginate from 'react-paginate';
 
-function Home() {
+function Home({ recommendationItems }) {
 
   const [foundItems, setFoundItems] = useState([])
-  const [recommendationItems, setRecommendationItems] = useState(null)
-
-  const { userSession } = useContext(UserSesesionContext)
-
-  useEffect(() => {
-    (async () => {
-      const res = await fetch('http://localhost:5000/api/recommendation?' + new URLSearchParams({ id: userSession.userId }))
-      const [item] = await res.json()
-      if (!item) return
-      const res2 = await fetch('http://localhost:5000/api/getItems?' + new URLSearchParams({ ...item, perPage: 5 }))
-      const { items } = await res2.json()
-      setRecommendationItems(items)
-    })()
-  }, [])
-
-
-
-
   //Pagination 
-  const itemsPerPage = 10; 
+  const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(0);
 
   const pageCount = Math.ceil(foundItems.length / itemsPerPage);
@@ -38,7 +19,6 @@ function Home() {
 
   const offset = currentPage * itemsPerPage;
   const itemsToDisplay = foundItems.slice(offset, offset + itemsPerPage);
-
 
   return (
     <div className="home">
@@ -52,7 +32,6 @@ function Home() {
                 <ItemCard item={item} key={index} />
               ))}
             </div>
-
             <ReactPaginate
               nextLabel={<svg className="arroPagi" xmlns="http://www.w3.org/2000/svg" height="40" width="40"><path className="arrowPagination" d="m15.625 30-1.958-1.958 8.041-8.084-8.041-8.041 1.958-1.959 10.042 10Z" /></svg>}
               previousLabel={<svg className="arroPagi" xmlns="http://www.w3.org/2000/svg" height="40" width="40"><path className="arrowPagination" d="M23.375 30 13.333 19.958l10.042-10 1.958 1.959-8.041 8.041 8.041 8.084Z" /></svg>}
@@ -62,7 +41,6 @@ function Home() {
               pageClassName="pagination-item"
               className="d-flex align-items-center justify-content-center pagination pt-5"
             />
-
           </div>
         </div>
       }

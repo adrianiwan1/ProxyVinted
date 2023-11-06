@@ -35,7 +35,7 @@ async function setNewUnBan(userId) {
 }
 
 function getAllUsers() {
-  const query = `SELECT id, user FROM user`
+  const query = `SELECT id, user, isBanned FROM user`
 
   return database.sqlQuery(query)
 }
