@@ -2,7 +2,7 @@ const { getAllItems } = require('../services/getAllItemsUseCase.js')
 const { getItem } = require('../services/getSingleItmeUseCase.js')
 const { login } = require('../services/loginUserUseCase.js')
 const { getUserRecommendation } = require('../services/recommendationCase.js')
-const { banUser } = require('../services/banUserUseCase.js')
+const { banUser, unBanUser } = require('../services/banUserUseCase.js')
 const { getUsers } = require('../services/getAllUsersUseCase.js') 
 
 async function getItems (req, res, next) {
@@ -94,6 +94,19 @@ async function banSelectedUser(req, res, next) {
   res.send(response)
 }
 
+async function unBanSelectedUser(req, res, next) {
+  console.log('unBanSelectedUser endpoint requested')
+
+  let response
+  try {
+    response = await unBanUser(req.body.userId)
+  } catch (err) {
+    res.status(400).send(err.message)
+  }
+
+  res.send(response)
+}
+
 async function getAllUsers(req, res, next) {
   console.log('getAllUsers endpoint requested')
 
@@ -107,4 +120,4 @@ async function getAllUsers(req, res, next) {
   res.send(response)
 }
 module.exports = { getItems, loginUser, getSingleItem, getRecommendation, 
-                    banSelectedUser, getAllUsers, isLoggedIn, logout }
+                    banSelectedUser, getAllUsers, isLoggedIn, logout, unBanSelectedUser }

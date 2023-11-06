@@ -6,4 +6,10 @@ async function banUser(userId = undefined) {
     return await repository.setNewBan(userId);
 }
 
-module.exports = { banUser }
+async function unBanUser(userId = undefined) {
+    if(userId === undefined) throw new Error('userId required!');
+    
+    return await repository.setNewUnBan(userId);
+}
+
+module.exports = { banUser, unBanUser }
