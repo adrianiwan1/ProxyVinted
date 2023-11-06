@@ -62,6 +62,14 @@ function SearchOptionsModal({ searchingState, onHideSearchOptionsModal, showSear
                             <option key={brand.id} value={brand.id}>{brand.title}</option>
                         ))}
                     </select>
+                    <select value={searchingState.order} onChange={(e) => dispatch({ type: 'CHANGE_SELECTED_ORDER', newState: e.target.value })} className="form-select ms-2 mb-3" id="inputGroupSelect01">
+                        <option>Select a brand</option>
+                        <option value='price_high_to_low'>Price: High to Low</option>
+                        <option value='price_low_to_high'>Price: Low to High</option>
+                        <option value='newest_first'>Newest First</option>
+                        <option value='relevance'>Relevance</option>
+                        <option value='favorites'>Favorites</option>
+                    </select>
                 </div>
             </Modal.Body>
             <Modal.Footer>

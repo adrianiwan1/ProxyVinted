@@ -14,7 +14,15 @@ function ItemCard({ item }) {
                     {item.user.login}
                 </div>
             </div>
-            <Card.Img variant="top" style={{ objectFit: "cover", height: '400px' }} src={item.photo.url} />
+            <Card.Img variant="top"  style={{ objectFit: "cover", height: '200px', width: '100%'}} src={item.photo.url} />
+            {/* <Card>
+                <Card.Img
+                    variant="top"
+                    className="img-fluid"
+                    style={{ maxHeight: '200px', width: '100%' }}
+                    src={item.photo.url}
+                />
+            </Card> */}
             <Card.Body className="d-flex flex-column">
                 <Card.Title style={{ fontSize: "28px", color: '#FFFFFF' }}>{item.title}</Card.Title>
                 <Card.Text>

@@ -7,8 +7,10 @@
     "concurrently": "^8.2.2"
   },
   "scripts": {
-    "install:frontend": "cd frontend && npm install",
+    "install:main": "npm install",
+    "install:frontend": "npm install && cd frontend && npm install",
     "install:backend": "cd API && npm install",
+    "install:dep":"concurrently \"npm run install:frontend\" \"npm run install:backend\"",
     "start:frontend": "cd frontend && npm start",
     "start:backend": "node API/bin/www",
     "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",

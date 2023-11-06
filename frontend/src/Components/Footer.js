@@ -9,7 +9,6 @@ function Footer() {
                 </a>
             </div>
 
-
             <div class="col mb-3">
                 <h5>Section</h5>
                 <ul class="nav flex-column">

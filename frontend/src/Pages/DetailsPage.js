@@ -20,12 +20,10 @@ function DetailsPage({ itemDetails }) {
         })()
     }, [])
 
-
-    console.log(item)
     return (
         <div className="home">
             <NavbarComponent setFoundItems={setFoundItems} />
-            
+
             <div className="d-flex flex-wrap justify-content-center mt-5 mb-5">
                 <Card className="flex me-3 flex-column p-1" style={{ width: '20rem' }} >
                     <div className="p-2 d-flex">
@@ -48,56 +46,56 @@ function DetailsPage({ itemDetails }) {
                         </Card.Text>
                     </Card.Body>
                 </Card>
-                    <Card style={{ width: '40rem' }}>
-      <Card.Header>
-        <Card.Title className="m-2">Szczegóły</Card.Title>
-      </Card.Header>
-      <Card.Body>
-        <Card.Text className="d-flex flex-wrap justify-content-between">
-                <div className="ms-1 mt-2" style={{width: "50%"}}>
+                <Card style={{ width: '40rem' }}>
+                    <Card.Header>
+                        <Card.Title className="m-2">Szczegóły</Card.Title>
+                    </Card.Header>
+                    <Card.Body>
+                        <Card.Text className="d-flex flex-wrap justify-content-between">
+                            <div className="ms-1 mt-2" style={{ width: "50%" }}>
 
-                    <div className="m-2">
-                    <h4 className="mt-1">Opis</h4>
-                    <div>{item?.description}</div>
-                    </div>
+                                <div className="m-2">
+                                    <h4 className="mt-1">Opis</h4>
+                                    <div>{item?.description}</div>
+                                </div>
 
-                    <div className="m-2 mt-2">
-                    <h4 className="mt-3">Cena</h4>
-                    <div className="mt-1"><b>Cena:</b> {item?.price?.amount} €</div>
-                    <div className="mt-1"><b>Cena z ochroną:</b> {item?.total_item_price} €</div>
-                    </div>
+                                <div className="m-2 mt-2">
+                                    <h4 className="mt-3">Cena</h4>
+                                    <div className="mt-1"><b>Cena:</b> {item?.price?.amount} €</div>
+                                    <div className="mt-1"><b>Cena z ochroną:</b> {item?.total_item_price} €</div>
+                                </div>
 
-                    <div className="m-2">
-                        <h4 className="mt-3">O Użytkowniku</h4>
-                        <div className="mt-1"><b>Nawzwa użytkownika:</b> {item?.user?.login}</div>
-                        <div className="mt-1"><b>Ostatnio online:</b> {item?.user?.last_loged_on}</div>
-                        <div className="mt-1"><b>Metody płatności:</b> <div class="text-capitalize">{item?.user?.accepted_pay_in_methods?.map(method=>method?.code.replaceAll('_',' ').toLowerCase()).join(', ')}</div></div>
-                    </div>
+                                <div className="m-2">
+                                    <h4 className="mt-3">O Użytkowniku</h4>
+                                    <div className="mt-1"><b>Nawzwa użytkownika:</b> {item?.user?.login}</div>
+                                    <div className="mt-1"><b>Ostatnio online:</b> {item?.user?.last_loged_on}</div>
+                                    <div className="mt-1"><b>Metody płatności:</b> <div class="text-capitalize">{item?.user?.accepted_pay_in_methods?.map(method => method?.code.replaceAll('_', ' ').toLowerCase()).join(', ')}</div></div>
+                                </div>
 
-                </div>
-                <div className="me-3 mt-2">
+                            </div>
+                            <div className="me-3 mt-2">
 
-                    <div className="m-2">
-                    <h4 className="mt-3">O Produkcie</h4>
-                    <div className="mt-1"><b>Rozmiar:</b> {item?.size}</div>
-                    <div className="mt-1"><b>Marka:</b> {item?.brand}</div>
-                    <div className="mt-1"><b>Kolor:</b> {item?.color1}</div>
-                    </div>
+                                <div className="m-2">
+                                    <h4 className="mt-3">O Produkcie</h4>
+                                    <div className="mt-1"><b>Rozmiar:</b> {item?.size}</div>
+                                    <div className="mt-1"><b>Marka:</b> {item?.brand}</div>
+                                    <div className="mt-1"><b>Kolor:</b> {item?.color1}</div>
+                                </div>
 
-                    <div className="m-2">
-                    <h4 className="mt-3">Lokalizacja</h4>
-                    <div className="mt-1"><b>Państwo:</b> {item?.country}</div>
-                    <div className="mt-1"><b>Miasto:</b> {item?.city}</div>
-                    </div>
+                                <div className="m-2">
+                                    <h4 className="mt-3">Lokalizacja</h4>
+                                    <div className="mt-1"><b>Państwo:</b> {item?.country}</div>
+                                    <div className="mt-1"><b>Miasto:</b> {item?.city}</div>
+                                </div>
 
-                </div>
+                            </div>
 
-        </Card.Text>
-        <Link to={'https://www.vinted.pl/items/'+item?.id}>
-            <Button className="m-3" variant="primary">View on Vinted</Button>
-        </Link>
-      </Card.Body>
-    </Card>
+                        </Card.Text>
+                        <Link to={'https://www.vinted.pl/items/' + item?.id}>
+                            <Button className="m-3" variant="primary">View on Vinted</Button>
+                        </Link>
+                    </Card.Body>
+                </Card>
             </div>
             <Footer />
         </div>

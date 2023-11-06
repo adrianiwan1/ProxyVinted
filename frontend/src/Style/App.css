@@ -2,7 +2,6 @@
   color: #999999 !important;
 }
 
-
 .searching-icon {
   cursor: pointer;
   margin-left: 0;
@@ -32,4 +31,25 @@
 .navbar-holder{
   z-index: 1;
 
+}
+.arroPagi{
+  fill: white;
+}
+
+.arroPagi:hover{
+  fill: rgb(207, 195, 195);
+}
+
+.pagination-item{
+  margin: 3px;
+  border: 1px solid white;
+  padding: 6px;
+  border-radius: 7px;
+  transition: all ease-in-out .3s;
+  font-size: 19px;
+}
+
+.pagination-item:hover{
+  color: rgb(0, 0, 0);
+  background-color: aliceblue;
 }
