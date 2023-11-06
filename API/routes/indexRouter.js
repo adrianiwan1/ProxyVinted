@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { logout, isLoggedIn, getItems, loginUser, getSingleItem, getRecommendation, banSelectedUser, getAllUsers } = require('../controllers/controller')
+const { logout, isLoggedIn, getItems, loginUser, getSingleItem, getRecommendation, banSelectedUser, getAllUsers, unBanSelectedUser } = require('../controllers/controller')
 
 /* GET GetItems /getItems */
 router.get('/getItems', getItems)
@@ -19,5 +19,7 @@ router.get('/recommendation', getRecommendation)
 router.get('/getUsers', getAllUsers)
 
 router.put('/banUser', banSelectedUser)
+
+router.put('/unBanUser', unBanSelectedUser)
 
 module.exports = router

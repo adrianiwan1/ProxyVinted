@@ -28,10 +28,15 @@ async function setNewBan(userId) {
   return await database.sqlQuery(query);
 }
 
+async function setNewUnBan(userId) {
+  const query = `UPDATE user SET isBanned = 0 WHERE id = ${userId}`
+
+  return await database.sqlQuery(query);
+}
 
 function getAllUsers() {
   const query = `SELECT id, user FROM user`
 
   return database.sqlQuery(query)
 }
-module.exports = { getLoginData, getUserRole, storeNewSearch, getUserRecommendation, setNewBan, getAllUsers }
+module.exports = { getLoginData, getUserRole, storeNewSearch, getUserRecommendation, setNewBan, getAllUsers, setNewUnBan }
