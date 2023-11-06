@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { logout, isLoggedIn, getItems, loginUser, getSingleItem, getRecommendation, banSelectedUser, getAllUsers, unBanSelectedUser } = require('../controllers/controller')
 
+
 /* GET GetItems /getItems */
 router.get('/getItems', getItems)
 

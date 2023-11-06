@@ -3,34 +3,47 @@ import NavbarComponent from '../Components/Navbar.js';
 import { UserSesesionContext } from "../UserSession/SessionContext.js";
 import ItemCard from '../Components/ItemCard.js'
 import Footer from "../Components/Footer.js";
-
+import axios from 'axios';
 
 function Profile({ recommendationItems }) {
 
   const { userSession } = useContext(UserSesesionContext)
 
   const [foundItems, setFoundItems] = useState([]);
-
   const [users, setUsers] = useState([])
+  const [refreshKey, setRefreshKey] = useState(0)
+
   useEffect(() => {
     (async () => {
       const res = await fetch('http://localhost:5000/api/getUsers')
-      const json = await res.json()
+      const json = await res.json();
       setUsers(json)
-    })()
-  }, [])
+    })();
+  }, [refreshKey])
 
-  const blockUser = (userElm) => {
-    console.log(userElm.id)
-    // banUser
+  const blockUser = async (userId) => {
+    let userID = userId.id;
+    axios.put('http://localhost:5000/api/banUser', { userId: userID }, { withCredentials: true })
+      .then((response) => {
+        console.log(response);
+        setRefreshKey(prevKey => prevKey + 1)
+      })
+      .catch((error) => {
+        console.log('Błąd:', error.response.data);
+      });
+  };
+
+  const unBlockUser = (userId) => {
+    let userID = userId.id;
+    axios.put('http://localhost:5000/api/unBanUser', { userId: userID }, { withCredentials: true })
+      .then((response) => {
+        console.log(response);
+        setRefreshKey(prevKey => prevKey + 1)
+      })
+      .catch((error) => {
+        console.log('Błąd:', error.response.data)
+      });
   }
-
-
-  const unlockUser = (userElm) => {
-    console.log('X')
-    // unBanUser
-  }
-
 
   return (
     <div className="home">
@@ -77,10 +90,9 @@ function Profile({ recommendationItems }) {
                       <svg className="block-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M240-80q-33 0-56.5-23.5T160-160v-400q0-33 23.5-56.5T240-640h40v-80q0-83 58.5-141.5T480-920q83 0 141.5 58.5T680-720v80h40q33 0 56.5 23.5T800-560v400q0 33-23.5 56.5T720-80H240Zm0-80h480v-400H240v400Zm240-120q33 0 56.5-23.5T560-360q0-33-23.5-56.5T480-440q-33 0-56.5 23.5T400-360q0 33 23.5 56.5T480-280ZM360-640h240v-80q0-50-35-85t-85-35q-50 0-85 35t-35 85v80ZM240-160v-400 400Z" /></svg>
                     </button>
                   ) : (
-                    <button className="mb-md-2 ms-1 rounded-pill btn btn-secondary bg-transparent border rounded d-flex p-2 block-unlock-button" onClick={() => unlockUser(userElm)}>
+                    <button className="mb-md-2 ms-1 rounded-pill btn btn-secondary bg-transparent border rounded d-flex p-2 block-unlock-button" onClick={() => unBlockUser(userElm)} >
                       <div className="pe-2">Unlock</div>
-                      <svg className="block-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M240-80q-33 0-56.5-23.5T160-160v-400q0-33 23.5-56.5T240-640h40v-80q0-83 58.5-141.5T480-920q83 0 141.5 58.5T680-720v80h40q33 0 56.5 23.5T800-560v400q0 33-23.5 56.5T720-80H240Zm0-80h480v-400H240v400Zm240-120q33 0 56.5-23.5T560-360q0-33-23.5-56.5T480-440q-33 0-56.5 23.5T400-360q0 33 23.5 56.5T480-280ZM360-640h240v-80q0-50-35-85t-85-35q-50 0-85 35t-35 85v80ZM240-160v-400 400Z" /></svg>
-                    </button>
+                      <svg className="block-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M240-640h360v-80q0-50-35-85t-85-35q-50 0-85 35t-35 85h-80q0-83 58.5-141.5T480-920q83 0 141.5 58.5T680-720v80h40q33 0 56.5 23.5T800-560v400q0 33-23.5 56.5T720-80H240q-33 0-56.5-23.5T160-160v-400q0-33 23.5-56.5T240-640Zm0 480h480v-400H240v400Zm240-120q33 0 56.5-23.5T560-360q0-33-23.5-56.5T480-440q-33 0-56.5 23.5T400-360q0 33 23.5 56.5T480-280ZM240-160v-400 400Z" /></svg>                    </button>
                   )}
 
                 </div>
