@@ -8,9 +8,11 @@ import ReactPaginate from 'react-paginate';
 function Home() {
 
   const [foundItems, setFoundItems] = useState([])
-  const [recommendationItems, setRecommendationItems] = useState(null)
+ 
 
   const { userSession } = useContext(UserSesesionContext)
+
+  const [recommendationItems, setRecommendationItems] = useState(null)
 
   useEffect(() => {
     (async () => {
@@ -22,8 +24,6 @@ function Home() {
       setRecommendationItems(items)
     })()
   }, [])
-
-
 
 
   //Pagination 
