@@ -21,6 +21,7 @@ function LoginModal({ setShowLoginModla, showLoginModla, setUserSession }) {
 
     axios.post('http://localhost:5000/api/login', data, {withCredentials: true})
       .then((response) => {
+        console.log(response)
         setUserSession(response.data)
         setShowLoginModla(false)
       })

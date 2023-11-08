@@ -2,6 +2,7 @@ import { useState, useContext, useEffect, useReducer } from "react";
 import SearchOptionsModal from "./SearchOptionsModal";
 import { Dropdown } from "react-bootstrap";
 import { UserSesesionContext } from "../UserSession/SessionContext";
+import { useLocation } from 'react-router-dom';
 import axios from 'axios'
 
 function NavbarComponent({ setFoundItems }) {
@@ -19,7 +20,6 @@ function NavbarComponent({ setFoundItems }) {
                 return (b.favourite_count || 0) - (a.favourite_count || 0)
             })
         }
- 
         setFoundItems(items || []);
     }
 
@@ -109,8 +109,8 @@ function NavbarComponent({ setFoundItems }) {
                                 </button>
                             </div>
                         </div>
-
                     </div>
+
                     <div className="me-3">
                         <Dropdown>
                             <Dropdown.Toggle id="dropdown-basic" className="bg-transparent" style={{ border: 'none' }}>
